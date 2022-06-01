@@ -6,7 +6,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const vote = (id) => {
-    console.log('vote', id);
+    dispatch(voteOf(id));
   };
 
   const create = (e) => {
