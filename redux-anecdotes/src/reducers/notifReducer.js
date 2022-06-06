@@ -1,4 +1,4 @@
-const notifReducer = (state = 'NONE', action) => {
+const notifReducer = (state = null, action) => {
   switch (action.type) {
     case 'SET_NOTIF':
       return action.notif;
@@ -7,10 +7,19 @@ const notifReducer = (state = 'NONE', action) => {
   }
 };
 
-export const notifChange = (notif) => {
-  return {
-    type: 'SET_FILTER',
-    notif
+export const notifChange = (notif, time) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_NOTIF',
+      notif
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: 'SET_NOTIF',
+        notif: null
+      });
+    }, time * 1000);
   };
 };
 
