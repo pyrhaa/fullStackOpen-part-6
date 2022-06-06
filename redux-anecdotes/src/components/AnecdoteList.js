@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { voteOf } from '../reducers/anecdoteReducer';
 
+//I does a .slice() before the .sort() because we need to dont mutate the array so we do a copy like this.
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const AnecdoteList = () => {
   return (
     <div>
       {anecdotes
+        .slice()
         .sort((a, b) => b.votes - a.votes)
         .map((anecdote) => (
           <div key={anecdote.id}>

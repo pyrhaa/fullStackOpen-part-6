@@ -21,41 +21,69 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state);
-  console.log('action', action);
-  switch (action.type) {
-    case 'NEW_ANECDOTE':
-      return [...state, action.data];
-    case 'VOTE':
-      const id = action.data.id;
+const anecSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    createAnecdote(state, action) {
+      const content = action.payload;
+      state.push({
+        content,
+        id: getId(),
+        votes: 0
+      });
+    },
+    voteOf(state, action) {
+      const id = action.payload;
       const anecToChange = state.find((anec) => anec.id === id);
       const changedAnec = {
         ...anecToChange,
         votes: anecToChange.votes + 1
       };
       return state.map((anec) => (anec.id !== id ? anec : changedAnec));
-    default:
-      return state;
-  }
-};
-
-export const createAnecdote = (content) => {
-  return {
-    type: 'NEW_ANECDOTE',
-    data: {
-      content,
-      id: getId(),
-      votes: 0
     }
-  };
-};
+  }
+});
 
-export const voteOf = (id) => {
-  return {
-    type: 'VOTE',
-    data: { id }
-  };
-};
+/* Without the createSlice under here */
 
-export default reducer;
+// const reducer = (state = initialState, action) => {
+//   console.log('state now: ', state);
+//   console.log('action', action);
+//   switch (action.type) {
+//     case 'NEW_ANECDOTE':
+//       return [...state, action.data];
+//     case 'VOTE':
+//       const id = action.data.id;
+//       const anecToChange = state.find((anec) => anec.id === id);
+//       const changedAnec = {
+//         ...anecToChange,
+//         votes: anecToChange.votes + 1
+//       };
+//       return state.map((anec) => (anec.id !== id ? anec : changedAnec));
+//     default:
+//       return state;
+//   }
+// };
+
+// export const createAnecdote = (content) => {
+//   return {
+//     type: 'NEW_ANECDOTE',
+//     data: {
+//       content,
+//       id: getId(),
+//       votes: 0
+//     }
+//   };
+// };
+
+// export const voteOf = (id) => {
+//   return {
+//     type: 'VOTE',
+//     data: { id }
+//   };
+// };
+
+export const { createAnecdote, voteOf } = anecSlice.actions;
+export default anecSlice.reducer;
+// export default reducer;

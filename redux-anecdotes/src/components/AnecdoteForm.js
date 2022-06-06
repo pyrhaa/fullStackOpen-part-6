@@ -9,7 +9,7 @@ const AnecdoteForm = () => {
     e.preventDefault();
     const content = e.target.anecdote.value;
     dispatch(createAnecdote(content));
-    dispatch(notifChange(`<${content}> is created`));
+    dispatch(notifChange(`<${content}> is created`, 4));
     e.target.anecdote.value = '';
   };
 
