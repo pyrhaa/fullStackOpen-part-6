@@ -1,6 +1,6 @@
 const Filter = () => {
-  const handleChange = (event) => {
-    // input-field value is in variable event.target.value
+  const handleChange = (e) => {
+    e.preventDefault();
   };
   const style = {
     marginBottom: 10
