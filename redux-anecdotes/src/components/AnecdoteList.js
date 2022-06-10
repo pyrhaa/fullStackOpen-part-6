@@ -4,7 +4,15 @@ import { notifChange } from '../reducers/notifReducer';
 
 //I does a .slice() before the .sort() because we need to dont mutate the array so we do a copy like this.
 const AnecdoteList = () => {
-  const anecdotes = useSelector((state) => state.anecdotes);
+  const anecdotes = useSelector((state) => {
+    if (state.filter.length) {
+      return state.anecdotes.filter((el) =>
+        el.content.toLowerCase().includes(state.filter)
+      );
+    } else {
+      return state.anecdotes;
+    }
+  });
   const dispatch = useDispatch();
 
   const vote = (arg) => {
