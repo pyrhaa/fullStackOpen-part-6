@@ -45,6 +45,9 @@ const anecSlice = createSlice({
     },
     appendAnecdote(state, action) {
       state.push(action.payload);
+    },
+    setAnecdotes(state, action) {
+      return action.payload;
     }
   }
 });
@@ -88,6 +91,7 @@ const anecSlice = createSlice({
 //   };
 // };
 
-export const { createAnecdote, voteOf, appendAnecdote } = anecSlice.actions;
+export const { createAnecdote, voteOf, appendAnecdote, setAnecdotes } =
+  anecSlice.actions;
 export default anecSlice.reducer;
 // export default reducer;
