@@ -13,16 +13,6 @@ const notifSlice = createSlice({
   }
 });
 
-export const notifChange = (notif, time) => {
-  return async (dispatch) => {
-    dispatch(newNotif(notif));
-
-    setTimeout(() => {
-      dispatch(newNotif(initialState));
-    }, time * 1000);
-  };
-};
-
 /** without createSlice */
 // const notifReducer = (state = null, action) => {
 //   switch (action.type) {
@@ -51,4 +41,15 @@ export const notifChange = (notif, time) => {
 
 // export default notifReducer;
 export const { newNotif } = notifSlice.actions;
+
+export const notifChange = (notif, time) => {
+  return async (dispatch) => {
+    dispatch(newNotif(notif));
+
+    setTimeout(() => {
+      dispatch(newNotif(initialState));
+    }, time * 1000);
+  };
+};
+
 export default notifSlice.reducer;
