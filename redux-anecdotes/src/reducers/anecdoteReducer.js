@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import anecdoteService from '../services/anecdotes';
 
 /** Part of the exercices, when we dont use thje db.json */
 // const anecdotesAtStart = [
@@ -89,5 +90,11 @@ const anecSlice = createSlice({
 
 export const { createAnecdote, voteOf, appendAnecdote, setAnecdotes } =
   anecSlice.actions;
+export const initializeAnecdotes = () => {
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll();
+    dispatch(setAnecdotes(anecdotes));
+  };
+};
 export default anecSlice.reducer;
 // export default reducer;
