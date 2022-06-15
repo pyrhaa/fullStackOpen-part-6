@@ -9,8 +9,8 @@ const AnecdoteForm = () => {
   const create = async (e) => {
     e.preventDefault();
     const content = e.target.anecdote.value;
-    const newAnec = await anecdoteService.createNew(content);
-    dispatch(createAnecdote(newAnec));
+    /*const newAnec = await anecdoteService.createNew(content);*/
+    dispatch(createAnecdote(content));
     dispatch(notifChange(`<${content}> is created`, 5));
     e.target.anecdote.value = '';
   };
