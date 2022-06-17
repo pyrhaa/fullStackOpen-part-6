@@ -1,17 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { createAnecdote } from '../reducers/anecdoteReducer';
 import { notifChange } from '../reducers/notifReducer';
 /*import anecdoteService from '../services/anecdotes';*/
 
-const AnecdoteForm = () => {
-  const dispatch = useDispatch();
-
+const AnecdoteForm = (props) => {
   const create = async (e) => {
     e.preventDefault();
     const content = e.target.anecdote.value;
     /*const newAnec = await anecdoteService.createNew(content);*/
-    dispatch(createAnecdote(content));
-    dispatch(notifChange(`<${content}> is created`, 5));
+    props.createAnecdote(content);
+    props.notifChange(`<${content}> is created`, 5);
     e.target.anecdote.value = '';
   };
 
@@ -28,4 +26,16 @@ const AnecdoteForm = () => {
   );
 };
 
-export default AnecdoteForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createAnecdote: (value) => {
+      dispatch(createAnecdote(value));
+    },
+    notifChange: (value, time) => {
+      dispatch(notifChange(value, time));
+    }
+  };
+};
+
+const ConnectedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm);
+export default ConnectedAnecdoteForm;

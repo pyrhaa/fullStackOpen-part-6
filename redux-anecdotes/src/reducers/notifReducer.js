@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = null;
+let timeoutId;
 
 const notifSlice = createSlice({
   name: 'notif',
@@ -44,9 +45,10 @@ export const { newNotif } = notifSlice.actions;
 
 export const notifChange = (notif, time) => {
   return async (dispatch) => {
+    clearTimeout(timeoutId);
     dispatch(newNotif(notif));
 
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       dispatch(newNotif(initialState));
     }, time * 1000);
   };
